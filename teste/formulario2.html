@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Desafio formulário</title>
+    <link rel="stylesheet" href="formulario2.css" />
+  </head>
+  <body>
+    <form action="/php/formulario2-resposta.php" method="post">
+      <h1>Deixe um comentário</h1>
+
+      <label for="nome">
+        Nome:
+        <input type="text" name="nome" />
+      </label>
+
+      <label for="email">
+        E-mail:
+        <input type="email" name="email" />
+      </label>
+
+      <label for="website">
+        Website:
+        <input type="url" name="website" />
+      </label>
+
+      <label for="comentario">
+        Comentário:
+        <textarea name="comentario" rows="5"></textarea>
+      </label>
+
+      <p>
+        <strong>Observação:</strong> Seu comentário será publicado após passar
+        pelo moderador
+      </p>
+
+      <input type="submit" value="Enviar Comentário" />
+    </form>
+  </body>
+</html>

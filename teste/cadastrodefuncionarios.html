@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cadastro de Clientes</title>
+    <link rel="stylesheet" href="formulario2.css" />
+  </head>
+  <script>
+    function validarCPF(cpf) {
+      cpf = cpf.replace(/[^\d]+/g, "");
+      if (cpf === "") return false;
+
+      // Elimina CPFs invalidos conhecidos
+      if (/^(\d)\1{10}$/.test(cpf)) {
+        return false;
+      }
+
+      // Valida 1o digito
+      let add = 0;
+      for (let i = 0; i < 9; i++) {
+        add += parseInt(cpf.charAt(i)) * (10 - i);
+      }
+      let rev = 11 - (add % 11);
+      if (rev === 10 || rev === 11) rev = 0;
+      if (rev !== parseInt(cpf.charAt(9))) return false;
+
+      // Valida 2o digito
+      add = 0;
+      for (let i = 0; i < 10; i++) {
+        add += parseInt(cpf.charAt(i)) * (11 - i);
+      }
+      rev = 11 - (add % 11);
+      if (rev === 10 || rev === 11) rev = 0;
+      if (rev !== parseInt(cpf.charAt(10))) return false;
+
+      return true;
+    }
+
+    function validarFormulario() {
+      let cpf = document.forms["formCadastro"]["txtCpf"].value;
+      if (!validarCPF(cpf)) {
+        alert("CPF inválido. Por favor, digite um CPF válido.");
+        return false;
+      }
+      return true;
+    }
+  </script>
+  <body>
+    <form
+      method="post"
+      name="formCadastro"
+      action="http://localhost/php/cadastrodefuncionarios.php"
+      enctype="multipart/form-data"
+      onsubmit="return validarFormulario()"
+      s
+    >
+      <!-- <img src="../../" alt=""> -->
+      <h1>Cadastro de clientes</h1>
+      <table width="80%">
+        <tr>
+          <th width="18%">Nome</th>
+          <td width="82%"><input type="text" name="txtNome" /></td>
+        </tr>
+
+        <tr>
+          <th>CPF</th>
+          <td><input name="txtCpf" type="text" maxlength="14" /></td>
+        </tr>
+
+        <tr>
+          <th>Endereço</th>
+          <td>
+            <textarea name="txtEndereco" cols="30" rows="4"> </textarea>
+          </td>
+        </tr>
+
+        <tr>
+          <th>Estado</th>
+          <td>
+            <select name="listaEstados">
+              <option value="BA">Bahia</option>
+              <option value="ES">Espírito Santo</option>
+              <option value="MG">Minas Gerais</option>
+              <option value="RJ">Rio de Janeiro</option>
+              <option value="SP">São Paulo</option>
+            </select>
+          </td>
+        </tr>
+
+        <tr>
+          <th>Data Nasc.</th>
+          <td><input name="txtData" type="date" /></td>
+        </tr>
+
+        <tr>
+          <th>Sexo</th>
+          <td>
+            <input type="radio" name="sexo" value="M" checked />Masculino<br />
+            <input type="radio" name="sexo" value="F" />Feminino
+          </td>
+        </tr>
+
+        <tr>
+          <th>Áreas de Interesse</th>
+          <td>
+            <input
+              name="checkCinema"
+              type="checkbox"
+              value="false"
+            />Cinema<br />
+            <input
+              name="checkMusica"
+              type="checkbox"
+              value="false"
+            />Música<br />
+            <input
+              name="checkInfo"
+              type="checkbox"
+              value="true"
+            />Informática<br />
+          </td>
+        </tr>
+
+        <tr>
+          <th>Login</th>
+          <td>
+            <input name="txtLogin" type="text" />
+          </td>
+        </tr>
+
+        <tr>
+          <th>Senha</th>
+          <td>
+            <input name="txtSenha1" type="password" />
+          </td>
+        </tr>
+
+        <tr>
+          <th>Confirmação de Senha</th>
+          <td>
+            <input name="txtSenha2" type="password" />
+          </td>
+        </tr>
+
+        <tr>
+          <th>Enviar imagem</th>
+          <td>
+            <input name="txtFoto" type="file" />
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <input type="reset" name="btnLimpar" value="Limpar" />
+          </td>
+          <td>
+            <input type="submit" name="btnEnviar" value="Enviar" />
+          </td>
+        </tr>
+      </table>
+    </form>
+  </body>
+</html>
